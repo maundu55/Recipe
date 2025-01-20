@@ -33,7 +33,7 @@ const Header = () => {
     </a>
     <Nav isOpen={isOpen} />
 
-    <button onClick={toggleMenu} className='z-50 text-black md:hidden'>
+    <button onClick={toggleMenu} className='z-50 text-white md:hidden'>
         {isOpen ? <X size={32} /> : <Menu size={32} />}
        
     </button>
