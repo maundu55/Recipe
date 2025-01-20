@@ -4,7 +4,7 @@
 
 .hero {
     position: relative;
-    background: url(./assets/hero-bg.webp);
+    background: url('./assets/chicken.jpg');
     background-position: left;
     background-repeat: no-repeat;
     background-size: cover;
