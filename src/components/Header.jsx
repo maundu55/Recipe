@@ -31,9 +31,9 @@ const Header = () => {
     <a className={`${isScrolled ? 'text-primary-400' : 'text-white'} text-500 font-500`} href="/">
     Zest
     </a>
-    <Nav />
+    <Nav isOpen={isOpen} />
 
-    <button onClick={toggleMenu} className='z-50 text-white md:hidden'>
+    <button onClick={toggleMenu} className='z-50 text-black md:hidden'>
         {isOpen ? <X size={32} /> : <Menu size={32} />}
        
     </button>
