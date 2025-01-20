@@ -2,10 +2,10 @@ import React from 'react'
 import { Heart } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
-const Recipe = ({recipe}) => {
+const Recipe = ({recipe, onToggle}) => {
   return (
     <div className='relative mb-4 rounded-lg bg-white shadow-md'>
-        <button className='absolute left-4 top-4 z-20 flex size-[32px] cursor-pointer items-center justify-center rounded-full bg-primary-400 text-white'>
+        <button onClick={()=> onToggle(recipe.id)} className='absolute left-4 top-4 z-20 flex size-[32px] cursor-pointer items-center justify-center rounded-full bg-primary-400 text-white'>
             <Heart />
         </button>
         <Link to={`/recipe/${recipe.id}`}>

@@ -5,7 +5,9 @@ import Recipe from '../components/Recipe'
 import NotFound from '../assets/not-found.png'
 
 const Recipes = () => {
-    const[searchTerm, setSearchTerm] = useState('fas');
+    const[searchTerm, setSearchTerm] = useState('');
+    const [likedRecipes, setLikedRecipes] =useState([]);
+
 const handleChange =(e)=>{
     setSearchTerm(e.target.value)
     // console.log(e)
@@ -13,6 +15,18 @@ const handleChange =(e)=>{
 
 const filteredRecipes = recipes.filter(recipe => recipe.title.toLowerCase().includes(searchTerm.toLowerCase()))
 
+const handleLikedToggle =(recipeId) =>{
+    setLikedRecipes((prevLiked) =>{
+        let updatedLiked;
+
+        if(prevLiked.includes(recipeId)){
+            updatedLiked = prevLiked.filter((id) => id !== recipeId);
+        } else{
+            updatedLiked =[...prevLiked, recipeId];
+        }
+        return updatedLiked;
+    });
+};
   return (
    <section className='mx-auto max-w-6xl px-4 py-8'>
     <div className='md:flex md:justify-between md:w-full md:items-center'>
@@ -42,7 +56,7 @@ const filteredRecipes = recipes.filter(recipe => recipe.title.toLowerCase().incl
         <div className='mt-8 md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-3'>
          {
         filteredRecipes.map(recipe =>(
-            <Recipe key={recipe.id} recipe={recipe} />
+            <Recipe key={recipe.id} recipe={recipe} onToggle={handleLikedToggle} />
         ))
     }
         </div>
