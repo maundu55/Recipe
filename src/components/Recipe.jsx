@@ -13,7 +13,7 @@ const Recipe = ({recipe, onToggle, isLiked}) => {
         <div className='p-4'>
             <h2 className='text-400 font-600'>{recipe.title}</h2>
             <div className='flex mt-2 items-center text-sm text-gray-600'>
-            <span>{recipe.time}</span>
+            <span className='mr-4'>{recipe.time}</span>
             <span>{recipe.difficulty}</span>
             </div>
             <p className='text-200 mt-2'>{recipe.description}</p>

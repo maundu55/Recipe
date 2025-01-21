@@ -7,6 +7,7 @@ import NotFound from '../assets/not-found.png'
 const Recipes = () => {
     const[searchTerm, setSearchTerm] = useState('');
     const [likedRecipes, setLikedRecipes] =useState([]);
+    const[showLiked, setShowLiked] = useState(false);
 
 const handleChange =(e)=>{
     setSearchTerm(e.target.value)
@@ -19,7 +20,9 @@ useEffect(()=>{
     setLikedRecipes(storedLikedRecipes);
 }, [])
 
-const filteredRecipes = recipes.filter(recipe => recipe.title.toLowerCase().includes(searchTerm.toLowerCase()))
+const filteredRecipes = recipes.filter(recipe => recipe.title.toLowerCase().includes(searchTerm.toLowerCase()));
+
+const displayedRecipes = showLiked ? filteredRecipes.filter((recipe)=> likedRecipes.includes(recipe.id)) : filteredRecipes;
 
 const handleLikedToggle =(recipeId) =>{
     setLikedRecipes((prevLiked) =>{
@@ -50,12 +53,14 @@ const handleLikedToggle =(recipeId) =>{
             <Search size={20} className='absolute left-4 top-1/2 -translate-y-1/2 transform text-gray-400' />
         </div>
         <div>
-            <button className="font-500 rounded-lg bg-primary-400 px-4 py-2 text-white">Liked recipes</button>
+            <button onClick={()=> setShowLiked(!showLiked)} className="font-500 rounded-lg bg-primary-400 px-4 py-2 text-white">
+                {showLiked ? 'All recipes' : 'Liked recipes'}
+            </button>
         </div>
     </div>
    <div>
   {
-    filteredRecipes.length === 0? (
+    displayedRecipes.length === 0? (
         <div>
             <img className='mx-auto size-[400px]' src={NotFound} alt="not found" />
             <p className='text-500 font-600 text-center'>No recipes found</p>
@@ -63,7 +68,7 @@ const handleLikedToggle =(recipeId) =>{
     ) : (
         <div className='mt-8 md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-3'>
          {
-        filteredRecipes.map(recipe =>(
+        displayedRecipes.map(recipe =>(
             <Recipe 
             key={recipe.id} 
             recipe={recipe}
