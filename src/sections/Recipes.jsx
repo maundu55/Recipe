@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Search } from 'lucide-react'
 import {recipes } from '../data'
 import Recipe from '../components/Recipe'
@@ -13,6 +13,12 @@ const handleChange =(e)=>{
     // console.log(e)
 }
 
+useEffect(()=>{
+    const storedLikedRecipes = JSON.parse(localStorage.getItem('likedRecipes') || '[]');
+
+    setLikedRecipes(storedLikedRecipes);
+}, [])
+
 const filteredRecipes = recipes.filter(recipe => recipe.title.toLowerCase().includes(searchTerm.toLowerCase()))
 
 const handleLikedToggle =(recipeId) =>{
@@ -24,6 +30,8 @@ const handleLikedToggle =(recipeId) =>{
         } else{
             updatedLiked =[...prevLiked, recipeId];
         }
+        localStorage.setItem('likedRecipes', JSON.stringify(updatedLiked));
+
         return updatedLiked;
     });
 };
@@ -56,7 +64,11 @@ const handleLikedToggle =(recipeId) =>{
         <div className='mt-8 md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-3'>
          {
         filteredRecipes.map(recipe =>(
-            <Recipe key={recipe.id} recipe={recipe} onToggle={handleLikedToggle} />
+            <Recipe 
+            key={recipe.id} 
+            recipe={recipe}
+            isLiked={likedRecipes.includes(recipe.id)} 
+            onToggle={handleLikedToggle} />
         ))
     }
         </div>
