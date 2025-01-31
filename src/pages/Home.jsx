@@ -2,6 +2,7 @@ import React from 'react'
 import Hero from '../sections/Hero'
 import Recipes from '../sections/Recipes'
 import Testimonial from '../sections/Testimonial'
+import Newsletter from '../components/Newsletter'
 
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
 <Hero />
 <Recipes />
 <Testimonial />
+<Newsletter />
 </>
 
   )
